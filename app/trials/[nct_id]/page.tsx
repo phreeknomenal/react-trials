@@ -88,7 +88,7 @@ function KeyDetails({ trial }: { trial: Trial }) {
     { label: "Study Type", value: trial.studyType },
     { label: "Phase", value: trial.phase },
     { label: "Status", value: trial.status },
-    { label: "Enrollment", value: trial.enrollmentCount ? `${trial.enrollmentCount} (${trial.enrollmentType ?? ""})`.trim() : null },
+    { label: "Enrollment", value: trial.enrollmentCount ? (trial.enrollmentType ? `${trial.enrollmentCount} (${trial.enrollmentType})` : trial.enrollmentCount) : null },
     { label: "Start Date", value: trial.startDate },
     { label: "Primary Completion", value: trial.primaryCompletionDate },
     { label: "Completion Date", value: trial.completionDate },
