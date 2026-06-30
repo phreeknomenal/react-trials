@@ -1,4 +1,5 @@
 // Server-only module — do not import from client components.
+import { cache } from "react";
 import type {
   Trial,
   SearchResponse,
@@ -47,14 +48,15 @@ export async function searchTrials(params: SearchParams): Promise<SearchResponse
   };
 }
 
-export async function getTrialDetail(nctId: string): Promise<Trial | null> {
+export const getTrialDetail = cache(async function getTrialDetail(nctId: string): Promise<Trial | null> {
   if (!nctId) return null;
 
   const res = await fetch(`${BASE_URL}/studies/${nctId}?format=json`, {
     cache: "no-store",
   });
 
-  if (!res.ok) return null;
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`ClinicalTrials.gov returned ${res.status}`);
 
   const data: RawStudy | RawSearchResponse = await res.json();
 
@@ -67,7 +69,7 @@ export async function getTrialDetail(nctId: string): Promise<Trial | null> {
   const wrapped = data as RawSearchResponse;
   const first = wrapped.studies?.[0];
   return first ? formatStudy(first) : null;
-}
+});
 
 function dig<T>(obj: Record<string, unknown>, ...keys: string[]): T | null {
   let cur: unknown = obj;
