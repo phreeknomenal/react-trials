@@ -165,7 +165,7 @@ function InterventionsSection({ interventions }: { interventions: Intervention[]
     <Section id="interventions" title="Treatments">
       <div className="space-y-4">
         {interventions.map((intervention, i) => (
-          <div key={intervention.name ?? i} className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4">
+          <Card key={intervention.name ?? i}>
             <div className="flex items-start gap-2 mb-2">
               {intervention.type && <Badge label={intervention.type} muted />}
               {intervention.name && (
@@ -177,7 +177,7 @@ function InterventionsSection({ interventions }: { interventions: Intervention[]
             {intervention.description && (
               <p className="text-sm text-zinc-600 dark:text-zinc-400">{intervention.description}</p>
             )}
-          </div>
+          </Card>
         ))}
       </div>
     </Section>
@@ -200,7 +200,7 @@ function LocationsSection({
           {displayLocations.map((loc, i) => (
             <div
               key={`${loc}-${i}`}
-              className="flex items-start gap-2 p-3 border border-zinc-200 dark:border-zinc-700 rounded-lg"
+              className={`flex items-start gap-2 p-3 ${borderedCard}`}
             >
               <MapPin className="h-4 w-4 shrink-0 mt-0.5 text-zinc-400 dark:text-zinc-500" />
               <span className="text-sm text-zinc-800 dark:text-zinc-200">{loc}</span>
@@ -276,6 +276,12 @@ function CtaSection({ nctId }: { nctId: string }) {
 
 // ── Shared primitives ──────────────────────────────────────────────────────────
 
+const borderedCard = "border border-zinc-200 dark:border-zinc-700 rounded-lg";
+
+function Card({ children }: { children: React.ReactNode }) {
+  return <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4">{children}</div>;
+}
+
 function Section({
   id,
   title,
@@ -320,7 +326,7 @@ function DetailItem({ label, value }: { label: string; value: string }) {
 
 function Disclosure({ title, body }: { title: string; body: string }) {
   return (
-    <details className="border border-zinc-200 dark:border-zinc-700 rounded-lg group">
+    <details className={`${borderedCard} group`}>
       <summary className="flex items-center justify-between px-4 py-3 cursor-pointer text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-lg list-none">
         {title}
         <span aria-hidden="true" className="ml-2 transition-transform group-open:rotate-180">▼</span>
@@ -346,7 +352,7 @@ function ContactCard({
   affiliation?: string | null;
 }) {
   return (
-    <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4">
+    <Card>
       {name && <p className="font-semibold text-sm text-zinc-900 dark:text-zinc-100">{name}</p>}
       {role && <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{role}</p>}
       {affiliation && (
@@ -358,6 +364,6 @@ function ContactCard({
           {email && <p className="flex items-center gap-1 text-xs text-zinc-600 dark:text-zinc-400"><Mail className="h-3 w-3 shrink-0" />{email}</p>}
         </div>
       )}
-    </div>
+    </Card>
   );
 }
