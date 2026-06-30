@@ -55,7 +55,8 @@ export const getTrialDetail = cache(async function getTrialDetail(nctId: string)
     cache: "no-store",
   });
 
-  if (!res.ok) return null;
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`ClinicalTrials.gov returned ${res.status}`);
 
   const data: RawStudy | RawSearchResponse = await res.json();
 

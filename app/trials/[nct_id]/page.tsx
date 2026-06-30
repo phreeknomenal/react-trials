@@ -1,15 +1,14 @@
 import { notFound } from "next/navigation";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { getTrialDetail } from "@/lib/clinical-trials-client";
 import type { Trial, Contact, Official, Intervention, TrialLocation, Outcome } from "@/lib/types/trial";
 
 interface Props {
-  params: {
-    nct_id: string;
-  };
+  params: Promise<{ nct_id: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { nct_id } = params;
+  const { nct_id } = await params;
   const trial = await getTrialDetail(nct_id);
   return {
     title: trial ? `${trial.title} — Trials` : "Trial Not Found — Trials",
@@ -17,8 +16,14 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function TrialDetailPage({ params }: Props) {
-  const { nct_id } = params;
-  const trial = await getTrialDetail(nct_id);
+  const { nct_id } = await params;
+
+  let trial;
+  try {
+    trial = await getTrialDetail(nct_id);
+  } catch {
+    throw new Error("Unable to load trial details. The service may be temporarily unavailable.");
+  }
 
   if (!trial) notFound();
 
@@ -194,10 +199,10 @@ function LocationsSection({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
           {displayLocations.map((loc, i) => (
             <div
-              key={loc || i}
+              key={`${loc}-${i}`}
               className="flex items-start gap-2 p-3 border border-zinc-200 dark:border-zinc-700 rounded-lg"
             >
-              <span className="text-zinc-400 dark:text-zinc-500 mt-0.5">📍</span>
+              <MapPin className="h-4 w-4 shrink-0 mt-0.5 text-zinc-400 dark:text-zinc-500" />
               <span className="text-sm text-zinc-800 dark:text-zinc-200">{loc}</span>
             </div>
           ))}
@@ -349,8 +354,8 @@ function ContactCard({
       )}
       {(phone || email) && (
         <div className="mt-2 space-y-0.5">
-          {phone && <p className="text-xs text-zinc-600 dark:text-zinc-400">📞 {phone}</p>}
-          {email && <p className="text-xs text-zinc-600 dark:text-zinc-400">✉️ {email}</p>}
+          {phone && <p className="flex items-center gap-1 text-xs text-zinc-600 dark:text-zinc-400"><Phone className="h-3 w-3 shrink-0" />{phone}</p>}
+          {email && <p className="flex items-center gap-1 text-xs text-zinc-600 dark:text-zinc-400"><Mail className="h-3 w-3 shrink-0" />{email}</p>}
         </div>
       )}
     </div>
