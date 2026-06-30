@@ -159,7 +159,7 @@ function InterventionsSection({ interventions }: { interventions: Intervention[]
     <Section id="interventions" title="Treatments">
       <div className="space-y-4">
         {interventions.map((intervention, i) => (
-          <div key={i} className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4">
+          <div key={intervention.name ?? i} className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4">
             <div className="flex items-start gap-2 mb-2">
               {intervention.type && <Badge label={intervention.type} muted />}
               {intervention.name && (
@@ -193,7 +193,7 @@ function LocationsSection({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
           {displayLocations.map((loc, i) => (
             <div
-              key={i}
+              key={loc || i}
               className="flex items-start gap-2 p-3 border border-zinc-200 dark:border-zinc-700 rounded-lg"
             >
               <span className="text-zinc-400 dark:text-zinc-500 mt-0.5">📍</span>
@@ -226,7 +226,7 @@ function ContactsSection({
           </h3>
           <div className="space-y-3">
             {contacts.map((c, i) => (
-              <ContactCard key={i} name={c.name} role={c.role} phone={c.phone} email={c.email} />
+              <ContactCard key={c.email ?? c.name ?? i} name={c.name} role={c.role} phone={c.phone} email={c.email} />
             ))}
           </div>
         </div>
@@ -238,7 +238,7 @@ function ContactsSection({
           </h3>
           <div className="space-y-3">
             {officials.map((o, i) => (
-              <ContactCard key={i} name={o.name} role={o.role} affiliation={o.affiliation} />
+              <ContactCard key={o.name ?? i} name={o.name} role={o.role} affiliation={o.affiliation} />
             ))}
           </div>
         </div>
