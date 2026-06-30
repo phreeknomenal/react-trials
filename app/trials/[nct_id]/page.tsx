@@ -3,11 +3,13 @@ import { getTrialDetail } from "@/lib/clinical-trials-client";
 import type { Trial, Contact, Official, Intervention, TrialLocation, Outcome } from "@/lib/types/trial";
 
 interface Props {
-  params: Promise<{ nct_id: string }>;
+  params: {
+    nct_id: string;
+  };
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { nct_id } = await params;
+  const { nct_id } = params;
   const trial = await getTrialDetail(nct_id);
   return {
     title: trial ? `${trial.title} — Trials` : "Trial Not Found — Trials",
@@ -15,7 +17,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function TrialDetailPage({ params }: Props) {
-  const { nct_id } = await params;
+  const { nct_id } = params;
   const trial = await getTrialDetail(nct_id);
 
   if (!trial) notFound();
