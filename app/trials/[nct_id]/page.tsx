@@ -70,9 +70,10 @@ function Overview({ trial }: { trial: Trial }) {
         </p>
       )}
       {trial.detailedDescription && (
-        <details className="mt-4">
-          <summary className="cursor-pointer text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200">
+        <details className="mt-4 group">
+          <summary className="flex items-center justify-between cursor-pointer text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 list-none">
             Detailed description
+            <span aria-hidden="true" className="ml-2 transition-transform group-open:rotate-180">▼</span>
           </summary>
           <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed whitespace-pre-line">
             {trial.detailedDescription}
@@ -314,9 +315,10 @@ function DetailItem({ label, value }: { label: string; value: string }) {
 
 function Disclosure({ title, body }: { title: string; body: string }) {
   return (
-    <details className="border border-zinc-200 dark:border-zinc-700 rounded-lg">
-      <summary className="px-4 py-3 cursor-pointer text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-lg">
+    <details className="border border-zinc-200 dark:border-zinc-700 rounded-lg group">
+      <summary className="flex items-center justify-between px-4 py-3 cursor-pointer text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-lg list-none">
         {title}
+        <span aria-hidden="true" className="ml-2 transition-transform group-open:rotate-180">▼</span>
       </summary>
       <div className="px-4 pb-4 pt-2 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed whitespace-pre-line">
         {body}
