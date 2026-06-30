@@ -1,5 +1,6 @@
 import type { Trial } from "@/lib/types/trial";
-import { Badge } from "@/components/trials/primitives";
+import { Badge } from "@/components/primitives";
+import { StatusBadge } from "@/components/trials/primitives";
 
 export function TrialHeader({ trial }: { trial: Trial }) {
   return (
@@ -9,7 +10,7 @@ export function TrialHeader({ trial }: { trial: Trial }) {
         {trial.title}
       </h1>
       <div className="flex flex-wrap gap-2">
-        {trial.status && <Badge label={trial.status} />}
+        {trial.status && <StatusBadge status={trial.status} />}
         {trial.phase && <Badge label={trial.phase} muted />}
         {trial.sponsor && (
           <span className="text-sm text-zinc-500 dark:text-zinc-400 self-center">

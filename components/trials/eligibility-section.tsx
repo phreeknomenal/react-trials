@@ -1,5 +1,5 @@
 import type { Trial } from "@/lib/types/trial";
-import { Section, DetailItem, Disclosure } from "@/components/trials/primitives";
+import { Section, DetailItem, Disclosure } from "@/components/primitives";
 
 export function EligibilitySection({ trial }: { trial: Trial }) {
   const hasDemographics = trial.minAge || trial.maxAge || trial.sex;

@@ -1,12 +1,12 @@
 import type { Trial } from "@/lib/types/trial";
-import { Section } from "@/components/trials/primitives";
+import { Section } from "@/components/primitives";
 
 export function Overview({ trial }: { trial: Trial }) {
   if (!trial.summary && !trial.detailedDescription) return null;
   return (
     <Section id="overview" title="Study Overview">
       {trial.summary && (
-        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-line">
+        <p className="text-zinc-700 dark:text-zinc-300 leading-tight whitespace-pre-line">
           {trial.summary}
         </p>
       )}

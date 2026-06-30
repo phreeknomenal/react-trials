@@ -1,6 +1,6 @@
 import { MapPin } from "lucide-react";
 import type { TrialLocation } from "@/lib/types/trial";
-import { Section, borderedCard } from "@/components/trials/primitives";
+import { Section, borderedCard } from "@/components/primitives";
 
 export function LocationsSection({
   locations,

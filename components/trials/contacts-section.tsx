@@ -1,5 +1,5 @@
 import type { Contact, Official } from "@/lib/types/trial";
-import { Section, ContactCard } from "@/components/trials/primitives";
+import { Section, ContactCard } from "@/components/primitives";
 
 export function ContactsSection({
   contacts,

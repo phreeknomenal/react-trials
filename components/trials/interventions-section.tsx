@@ -1,5 +1,5 @@
 import type { Intervention } from "@/lib/types/trial";
-import { Section, Card, Badge } from "@/components/trials/primitives";
+import { Section, Card, Badge } from "@/components/primitives";
 
 export function InterventionsSection({ interventions }: { interventions: Intervention[] }) {
   return (

@@ -1,5 +1,5 @@
 import type { Trial } from "@/lib/types/trial";
-import { Section, Badge, DetailItem } from "@/components/trials/primitives";
+import { Section, Badge, DetailItem } from "@/components/primitives";
 
 export function KeyDetails({ trial }: { trial: Trial }) {
   const details: { label: string; value: string | number | null | undefined }[] = [
