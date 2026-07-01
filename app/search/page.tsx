@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { searchTrials } from "@/lib/clinical-trials-client";
 import { TrialCard } from "@/components/search/trial-card";
+import { SearchForm } from "@/components/search/search-form";
 
 interface Props {
   searchParams: Promise<{
@@ -112,16 +113,16 @@ function Pagination({ nextPageUrl }: { nextPageUrl: string | null }) {
 
 function EmptyPrompt() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-      <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">
-        Find a clinical trial
-      </h1>
-      <p className="text-zinc-500 dark:text-zinc-400 max-w-sm">
-        Search by condition or location using the URL: <br />
-        <code className="text-sm bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded">
-          /search?condition=diabetes
-        </code>
-      </p>
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center gap-6">
+      <div>
+        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">
+          Find a clinical trial
+        </h1>
+        <p className="text-zinc-500 dark:text-zinc-400 max-w-sm">
+          Search by condition or location to find studies that are recruiting.
+        </p>
+      </div>
+      <SearchForm />
     </div>
   );
 }
