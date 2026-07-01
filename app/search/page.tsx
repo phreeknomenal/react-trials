@@ -4,14 +4,20 @@ import { TrialCard } from "@/components/search/trial-card";
 
 interface Props {
   searchParams: Promise<{
-    condition?: string;
-    location?: string;
-    pageToken?: string;
+    condition?: string | string[];
+    location?: string | string[];
+    pageToken?: string | string[];
   }>;
 }
 
+function first(value?: string | string[]): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}
+
 export async function generateMetadata({ searchParams }: Props) {
-  const { condition, location } = await searchParams;
+  const raw = await searchParams;
+  const condition = first(raw.condition);
+  const location = first(raw.location);
   const query = [condition, location].filter(Boolean).join(" near ");
   return {
     title: query ? `"${query}" — Trials Search` : "Search Clinical Trials — Trials",
@@ -19,7 +25,10 @@ export async function generateMetadata({ searchParams }: Props) {
 }
 
 export default async function SearchPage({ searchParams }: Props) {
-  const { condition, location, pageToken } = await searchParams;
+  const raw = await searchParams;
+  const condition = first(raw.condition);
+  const location = first(raw.location);
+  const pageToken = first(raw.pageToken);
 
   const hasQuery = Boolean(condition || location);
 
