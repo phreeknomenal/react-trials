@@ -36,7 +36,7 @@ export async function searchTrials(params: SearchParams): Promise<SearchResponse
   const res = await fetch(`${BASE_URL}/studies?${query}`, { cache: "no-store" });
 
   if (!res.ok) {
-    return { studies: [], nextPageToken: null };
+    throw new Error(`ClinicalTrials.gov returned ${res.status}`);
   }
 
   const data: RawSearchResponse = await res.json();
