@@ -5,13 +5,21 @@ export function SearchForm() {
       method="GET"
       className="w-full max-w-2xl flex flex-col sm:flex-row gap-3"
     >
+      <label htmlFor="condition" className="sr-only">
+        Condition
+      </label>
       <input
+        id="condition"
         type="text"
         name="condition"
         placeholder="Condition (e.g. diabetes)"
         className="flex-1 px-4 py-3 text-sm rounded-md border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      <label htmlFor="location" className="sr-only">
+        Location
+      </label>
       <input
+        id="location"
         type="text"
         name="location"
         placeholder="Location (e.g. Boston)"
